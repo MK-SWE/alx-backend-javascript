@@ -6,6 +6,6 @@ export default function iterateThroughObject(reportWithIterator) {
     } else {
       report += el;
     }
-    });
+  });
   return report;
 }
