@@ -1,4 +1,3 @@
-/* eslint-disable  class-methods-use-this */
 export default class Building {
   constructor(sqft) {
     if (this.constructor === Building) {
@@ -15,9 +14,5 @@ export default class Building {
 
   get sqft() {
     return this._sqft;
-  }
-
-  evacuationWarningMessage() {
-    throw new Error('You have to implement the method evacuationWarningMessage!');
   }
 }
