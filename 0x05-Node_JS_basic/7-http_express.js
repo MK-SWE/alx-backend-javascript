@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/students', (req, res) => {
-  countStudents('./database.csv')
+  countStudents(process.argv[2].toString())
     .then((data) => {
       let response = 'This is the list of our students\n';
       response += `Number of students: ${data.total}\n`;
