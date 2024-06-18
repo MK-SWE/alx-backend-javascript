@@ -1,45 +1,32 @@
-import { readDatabase } from '../utils'
+import readDatabase from '../utils';
 
 class StudentsController {
-  static async getAllStudents(req, res) {
-    try {
-      const data = await readDatabase();
-      const fields = ['cs', 'swe'].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-
-      let responseText = 'This is the list of our students\n';
-      fields.forEach((field) => {
-        const students = data[field].names;
-        responseText += `Number of students in ${field.toUpperCase()}: ${students.length}. List: ${students.join(', ')}\n`;
-      });
-
-      res.statusCode = 200;
-      res.send(responseText);
-    } catch (error) {
-      res.statusCode = 500;
-      res.send('Cannot load the database');
-    }
+  static getAllStudents(req, res) {
+    readDatabase(process.argv[2].toString()).then((students) => {
+      const data = [];
+      data.push('This is the list of our students');
+      const keys = Object.keys(students);
+      keys.sort();
+      for (let i = 0; i < keys.length; i += 1) {
+        data.push(`Number of students in ${keys[i]}: ${students[keys[i]].length}. List: ${students[keys[i]].join(', ')}`);
+      }
+      res.status(200).send(data.join('\n'));
+    }).catch(() => {
+      res.status(500).send('Cannot load the database');
+    });
   }
 
-  static async getAllStudentsByMajor(req, res) {
-    const major = req.params.major;
-
-    if (!['CS', 'SWE'].includes(major.toUpperCase())) {
-      res.statusCode = 500;
-      res.send('Major parameter must be CS or SWE');
-      return;
-    }
-
-    try {
-      const data = await readDatabase();
-      const students = data[major.toLowerCase()].names;
-      const responseText = `List: ${students.join(', ')}`;
-
-      res.statusCode = 200;
-      res.send(responseText);
-    } catch (error) {
-      res.statusCode = 500;
-      res.send('Cannot load the database');
-    }
+  static getAllStudentsByMajor(req, res) {
+    const field = req.params.major;
+    readDatabase(process.argv[2].toString()).then((students) => {
+      if (!(field in students)) {
+        res.status(500).send('Major parameter must be CS or SWE');
+      } else {
+        res.status(200).send(`List: ${students[field].join(', ')}`);
+      }
+    }).catch(() => {
+      res.status(500).send('Cannot load the database');
+    });
   }
 }
 
