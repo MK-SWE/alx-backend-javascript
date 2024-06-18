@@ -13,8 +13,8 @@ app.get('/students', (req, res) => {
     .then((data) => {
       res.send(['This is the list of our students', data].join('\n'));
     })
-    .catch((error) => {
-      res.status(500).send(`Error: ${error.message}`);
+    .catch(() => {
+      res.send('This is the list of our students\nCannot load the database');
     });
 });
 
