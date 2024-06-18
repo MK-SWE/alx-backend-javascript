@@ -11,10 +11,10 @@ line.question('Welcome to Holberton School, what is your name?\n', (msg) => {
 
   // Close the readline interface
   line.close();
-  console.log('This important software is now closing\n');
 });
 
 // Handle the 'close' event
 line.on('close', () => {
+  console.log('This important software is now closing\n');
   process.exit(0);
 });
