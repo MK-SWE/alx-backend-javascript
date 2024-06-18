@@ -1,4 +1,8 @@
-const http = require('node:http');
+const http = require('http');
+
+// define the hostname and port
+const host = '127.0.0.1';
+const port = 1245;
 
 const app = http.createServer((req, res) => {
   res.statusCode = 200;
@@ -6,6 +10,6 @@ const app = http.createServer((req, res) => {
   res.end('Hello Holberton School!');
 });
 
-app.listen(1245, '127.0.0.1', () => {});
+app.listen(port, host, () => { });
 
 module.exports = app;
