@@ -1,7 +1,8 @@
-import express from 'express'
-const router = express.Router()
-import AppController from '../controllers/AppController'
-import StudentsController from '../controllers/StudentsController'
+import express from 'express';
+import AppController from '../controllers/AppController';
+import StudentsController from '../controllers/StudentsController';
+
+const router = express.Router();
 
 router.get('/', AppController.getHomepage);
 
