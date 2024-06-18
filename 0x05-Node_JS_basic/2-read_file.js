@@ -8,7 +8,7 @@ function countStudents(path) {
     // Split the data into lines
     const filerows = fileData.split('\n').filter((line) => line !== '');
 
-    // Remove the header
+    // Remove the header row
     filerows.shift();
 
     // Count the students
