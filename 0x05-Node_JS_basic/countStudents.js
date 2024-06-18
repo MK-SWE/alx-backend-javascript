@@ -9,7 +9,6 @@ function countStudents(fileName) {
       if (err) {
         reject(err);
       } else {
-        let output = '';
         const row = data.toString().split('\n');
         for (let i = 0; i < row.length; i += 1) {
           if (row[i]) {
@@ -27,14 +26,17 @@ function countStudents(fileName) {
             }
           }
         }
-        const i = length - 1;
-        output += `Number of students: ${i}\n`;
-        for (const [key, value] of Object.entries(majors)) {
-          if (key !== 'field') {
-            output += `Number of students in ${key}: ${value}. `;
-            output += `List: ${students[key].join(', ')}\n`;
+        const output = {
+          total: length - 1,
+          cs: {
+            count: majors['CS'],
+            names: students['CS']
+          },
+          swe: {
+            count: majors['SWE'],
+            names: students['SWE']
           }
-        }
+        };
         resolve(output);
       }
     });

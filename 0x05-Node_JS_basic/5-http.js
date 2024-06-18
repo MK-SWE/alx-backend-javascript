@@ -11,9 +11,12 @@ const app = http.createServer((req, res) => {
   if (req.url === '/students') {
     res.write('This is the list of our students\n');
     countStudents(process.argv[2].toString())
-      .then((output) => {
-        const outString = output.slice(0, -1);
-        res.end(outString);
+      .then((data) => {
+        let response = 'This is the list of our students\n';
+        response += `Number of students: ${data.total}\n`;
+        response += `Number of students in CS: ${data.cs.count}. List: ${data.cs.names.join(', ')}\n`;
+        response += `Number of students in SWE: ${data.swe.count}. List: ${data.swe.names.join(', ')}`;
+        res.end(response);
       }).catch(() => {
         res.statusCode = 404;
         res.end('Cannot load the database');
