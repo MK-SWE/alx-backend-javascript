@@ -9,5 +9,3 @@ app.get('/', (req, res) => {
 app.listen(7865, '127.0.0.1', () => {
   console.log('API available on localhost port 7865');
 });
-
-module.exports = app;
